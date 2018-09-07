@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<security:http>
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/register" access="permitAll" />
+		<security:intercept-url pattern="/createaccount"
+			access="permitAll" />
+
+
+		<security:form-login password-parameter="password"
+			username-parameter="username" login-page="/WEB-INF/jsp/login" />
+
+		<security:intercept-url pattern="/accesslogin"
+			access="permitAll" />
+		<security:intercept-url pattern="/logout" access="permitAll" />
+		<security:logout logout-url="/logout" logout-success-url="/" />
+		<security:intercept-url pattern="/postArticle"
+			access="permitAll" />
+
+
+
+
+	</security:http>
+	
+	
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+				group-authorities-by-username-query='"select * from blog.authorities w' />
+
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>
